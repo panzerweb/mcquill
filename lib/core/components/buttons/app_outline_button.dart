@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mcquill/core/extensions/button_size_extensions.dart';
 
 class AppOutlinedButton extends StatelessWidget {
   final String label;
@@ -7,6 +8,7 @@ class AppOutlinedButton extends StatelessWidget {
   final IconData? icon;
   final bool enabled;
   final bool expand;
+  final AppButtonSize size;
 
   const AppOutlinedButton({
     super.key,
@@ -15,6 +17,7 @@ class AppOutlinedButton extends StatelessWidget {
     this.icon,
     this.enabled = true,
     this.expand = true,
+    required this.size,
   });
 
   @override
@@ -23,7 +26,7 @@ class AppOutlinedButton extends StatelessWidget {
         ? Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(icon, size: 20),
+              Icon(icon, size: size.iconSize),
               const SizedBox(width: 8),
               Text(label),
             ],
@@ -32,9 +35,17 @@ class AppOutlinedButton extends StatelessWidget {
 
     final button = OutlinedButton(
       onPressed: enabled ? onPressed : null,
+      style: OutlinedButton.styleFrom(
+        padding: size.padding,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadiusGeometry.circular(4.0),
+        ),
+      ),
       child: child,
     );
 
-    return expand ? SizedBox(width: double.infinity, child: button) : button;
+    return expand
+        ? SizedBox(width: double.infinity, height: size.height, child: button)
+        : button;
   }
 }

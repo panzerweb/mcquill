@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mcquill/core/components/buttons/app_elevated_button.dart';
 import 'package:mcquill/core/constants/app_routes.dart';
+import 'package:mcquill/core/extensions/button_size_extensions.dart';
 import 'package:mcquill/core/styles/app_colors.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -63,6 +64,7 @@ class HomeScreen extends StatelessWidget {
                 backgroundColor: AppColors.primaryDark,
                 foregroundColor: AppColors.onPrimary,
                 enabled: true,
+                size: AppButtonSize.large,
 
                 onPressed: () {
                   context.pushReplacement(AppRoutes.dashboard);
