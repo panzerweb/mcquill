@@ -21,6 +21,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mcquill/core/components/buttons/app_icon_button.dart';
 import 'package:mcquill/core/constants/app_routes.dart';
+import 'package:mcquill/core/extensions/button_size_extensions.dart';
 import 'package:mcquill/core/styles/app_colors.dart';
 
 class MainAppBar extends StatefulWidget implements PreferredSizeWidget {
@@ -47,6 +48,9 @@ class _MainAppBarState extends State<MainAppBar> {
         // Action Buttons
         AppIconButton(
           icon: Icons.home,
+          size: AppButtonSize.small,
+          backgroundColor: Colors.transparent,
+          foregroundColor: AppColors.onPrimary,
           onPressed: () {
             context.go(AppRoutes.home);
           },
