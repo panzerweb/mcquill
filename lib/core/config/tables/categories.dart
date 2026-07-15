@@ -1,5 +1,15 @@
 import 'package:drift/drift.dart';
 
+/*
+  DEFAULT CATEGORIES ARE:
+
+  Survival
+  Hardcode
+  Creative
+  Redstone
+
+*/
+
 @DataClassName('CategoryData')
 class Categories extends Table {
   IntColumn get id => integer().autoIncrement()();

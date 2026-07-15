@@ -49,6 +49,9 @@ class AppElevatedButton extends StatelessWidget {
     final button = ElevatedButton(
       onPressed: enabled && !isLoading ? onPressed : null,
       style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadiusGeometry.circular(8.0),
+        ),
         padding: size.padding,
         backgroundColor: backgroundColor,
         foregroundColor: foregroundColor,
