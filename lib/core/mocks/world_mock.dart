@@ -34,4 +34,13 @@ final List<WorldEntity> mockWorlds = [
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
   ),
+  WorldEntity(
+    id: 3,
+    name: 'Brylle Angelo World',
+    description: 'A World for Brylle Angelo Baliad',
+    category: creativeCategory,
+    isPinned: false,
+    createdAt: DateTime.now(),
+    updatedAt: DateTime.now(),
+  ),
 ];
