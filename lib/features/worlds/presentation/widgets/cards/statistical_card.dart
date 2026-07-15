@@ -48,10 +48,10 @@ class StatisticalCard extends StatelessWidget {
           GridView.count(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            crossAxisCount: 2,
+            crossAxisCount: MediaQuery.sizeOf(context).width > 600 ? 4 : 2,
             mainAxisSpacing: 12,
             crossAxisSpacing: 12,
-            childAspectRatio: 1.8,
+            childAspectRatio: 1.3,
             children: [
               _StatTile(
                 icon: Icons.check_circle,
@@ -103,51 +103,105 @@ class _StatTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isCompact = constraints.maxWidth < 140;
+
+        return Container(
+          padding: const EdgeInsets.all(12),
+
+          decoration: BoxDecoration(
+            color: AppColors.tertiaryLight,
+            borderRadius: BorderRadius.circular(12),
+          ),
+
+          child: isCompact ? _buildCompact() : _buildExpanded(),
+        );
+      },
+    );
+  }
+
+  Widget _buildExpanded() {
+    return Row(
+      children: [
+        _buildIcon(),
+
+        const SizedBox(width: 10),
+
+        Expanded(child: _buildText()),
+      ],
+    );
+  }
+
+  Widget _buildCompact() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+
+      children: [
+        Icon(icon, color: color, size: 20),
+
+        const SizedBox(height: 4),
+
+        Text(
+          value,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+
+          style: AppTextStyles.cardHeading.copyWith(color: AppColors.textHint),
+        ),
+
+        Text(
+          title,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+
+          style: AppTextStyles.caption.copyWith(color: AppColors.textSecondary),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildIcon() {
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(8),
 
       decoration: BoxDecoration(
-        color: AppColors.tertiaryLight,
-        borderRadius: BorderRadius.circular(12),
+        color: color.withValues(alpha: 0.12),
+        borderRadius: BorderRadius.circular(8),
       ),
 
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(8),
+      child: Icon(icon, color: color, size: 22),
+    );
+  }
 
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
+  Widget _buildText({bool centered = false, bool compact = false}) {
+    return Column(
+      crossAxisAlignment: centered
+          ? CrossAxisAlignment.center
+          : CrossAxisAlignment.start,
 
-            child: Icon(icon, color: color, size: 22),
-          ),
+      mainAxisAlignment: MainAxisAlignment.center,
 
-          const SizedBox(width: 10),
+      children: [
+        Text(
+          value,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
 
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
+          style: (compact ? AppTextStyles.cardHeading : AppTextStyles.bodyLarge)
+              .copyWith(color: AppColors.textHint, fontWeight: FontWeight.w600),
+        ),
 
-              children: [
-                Text(
-                  value,
-                  style: AppTextStyles.bodyLarge.copyWith(
-                    color: AppColors.textHint,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+        Text(
+          title,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
 
-                Text(
-                  title,
-                  style: AppTextStyles.labelSmall.copyWith(
-                    color: AppColors.textSecondary,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+          style: (compact ? AppTextStyles.caption : AppTextStyles.labelSmall)
+              .copyWith(color: AppColors.textSecondary),
+        ),
+      ],
     );
   }
 }
