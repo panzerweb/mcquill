@@ -7,12 +7,14 @@ import 'package:mcquill/core/components/status/minecraft_status_config.dart';
 import 'package:mcquill/core/components/status/minecraft_status_display.dart';
 import 'package:mcquill/core/extensions/button_size_extensions.dart';
 import 'package:mcquill/core/styles/app_colors.dart';
-import 'package:mcquill/features/worlds/domain/entities/world_entity.dart';
 import 'package:mcquill/features/worlds/presentation/bloc/world_detail_cubit.dart';
 import 'package:mcquill/features/worlds/presentation/bloc/world_detail_state.dart';
-import 'package:mcquill/features/worlds/presentation/bloc/worlds_cubit.dart';
-import 'package:mcquill/features/worlds/presentation/bloc/worlds_state.dart';
 import 'package:mcquill/features/worlds/presentation/screens/world_detail_overlay_screen.dart';
+import 'package:mcquill/features/worlds/presentation/widgets/minecraft_tab_bar.dart';
+import 'package:mcquill/features/worlds/presentation/widgets/tabs/locations_tab.dart';
+import 'package:mcquill/features/worlds/presentation/widgets/tabs/lore_tab.dart';
+import 'package:mcquill/features/worlds/presentation/widgets/tabs/overview_tab.dart';
+import 'package:mcquill/features/worlds/presentation/widgets/tabs/tasks_tab.dart';
 
 class WorldScreen extends StatefulWidget {
   final int? worldId;
@@ -49,31 +51,43 @@ class _WorldScreenState extends State<WorldScreen> {
         if (state is WorldDetailLoaded) {
           final world = state.world;
 
-          return Scaffold(
-            appBar: PushedAppBar(
-              pageTitle: world.name,
-              customActions: [
-                AppIconButton(
-                  icon: readMode ? Icons.menu_book : Icons.edit_note_rounded,
-                  onPressed: () {
-                    setState(() {
-                      readMode = !readMode;
-                    });
-                  },
-                  size: AppButtonSize.large,
-                  backgroundColor: Colors.transparent,
-                  foregroundColor: AppColors.primary,
-                ),
-              ],
-            ),
-            body: SafeArea(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsetsGeometry.all(16.0),
-                  child: WorldDetailOverlayScreen(
-                    world: world,
-                    isReadMode: readMode,
+          return DefaultTabController(
+            length: 4,
+            child: Scaffold(
+              appBar: PushedAppBar(
+                pageTitle: world.name,
+                customActions: [
+                  AppIconButton(
+                    icon: readMode ? Icons.menu_book : Icons.edit_note_rounded,
+                    onPressed: () {
+                      setState(() {
+                        readMode = !readMode;
+                      });
+                    },
+                    size: AppButtonSize.large,
+                    backgroundColor: Colors.transparent,
+                    foregroundColor: AppColors.primary,
                   ),
+                ],
+              ),
+              body: SafeArea(
+                child: Column(
+                  children: [
+                    MinecraftTabBar(
+                      tabs: ["Overview", "Tasks", "Lore", "Locations"],
+                    ),
+
+                    Expanded(
+                      child: TabBarView(
+                        children: [
+                          OverviewTab(world: world, isReadMode: readMode),
+                          TasksTab(),
+                          LoreTab(),
+                          LocationsTab(),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),

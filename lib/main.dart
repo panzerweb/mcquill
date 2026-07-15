@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mcquill/core/routes/routes.dart';
 import 'package:mcquill/core/services/service_locator.dart';
 import 'package:mcquill/core/styles/app_colors.dart';
+import 'package:mcquill/features/worlds/presentation/bloc/categories_cubit.dart';
 import 'package:mcquill/features/worlds/presentation/bloc/world_detail_cubit.dart';
 import 'package:mcquill/features/worlds/presentation/bloc/worlds_cubit.dart';
 
@@ -17,6 +18,9 @@ void main() {
         BlocProvider<WorldsCubit>(create: (_) => locator<WorldsCubit>()),
         BlocProvider<WorldDetailCubit>(
           create: (_) => locator<WorldDetailCubit>(),
+        ),
+        BlocProvider<CategoriesCubit>(
+          create: (_) => locator<CategoriesCubit>(),
         ),
       ],
       child: const MainApp(),
