@@ -23,6 +23,7 @@ import 'package:mcquill/core/components/buttons/app_icon_button.dart';
 import 'package:mcquill/core/constants/app_routes.dart';
 import 'package:mcquill/core/extensions/button_size_extensions.dart';
 import 'package:mcquill/core/styles/app_colors.dart';
+import 'package:mcquill/core/styles/app_text_styles.dart';
 
 class MainAppBar extends StatefulWidget implements PreferredSizeWidget {
   const MainAppBar({super.key});
@@ -42,13 +43,16 @@ class _MainAppBarState extends State<MainAppBar> {
       foregroundColor: AppColors.onPrimary,
       title: Text(
         "MCQuill",
-        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        style: AppTextStyles.bodyLarge.copyWith(
+          color: AppColors.onPrimary,
+          fontWeight: FontWeight.bold,
+        ),
       ),
       actions: [
         // Action Buttons
         AppIconButton(
           icon: Icons.home,
-          size: AppButtonSize.small,
+          size: AppButtonSize.large,
           backgroundColor: Colors.transparent,
           foregroundColor: AppColors.onPrimary,
           onPressed: () {

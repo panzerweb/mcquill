@@ -12,6 +12,8 @@ class Worlds extends Table {
 
   IntColumn get categoryId => integer().references(Categories, #id)();
 
+  BoolColumn get isPinned => boolean().withDefault(const Constant(false))();
+
   DateTimeColumn get createdAt => dateTime()();
 
   DateTimeColumn get updatedAt => dateTime()();

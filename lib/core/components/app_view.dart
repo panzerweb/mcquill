@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mcquill/core/styles/app_colors.dart';
 
 class AppView extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
@@ -21,6 +22,7 @@ class AppView extends StatelessWidget {
         selectedIndex: navigationShell.currentIndex,
         indicatorColor: Colors.transparent,
         onDestinationSelected: _goBranch,
+        backgroundColor: AppColors.primaryDark,
         destinations: [
           _menuItem(
             context,
@@ -58,9 +60,7 @@ class AppView extends StatelessWidget {
     return NavigationDestination(
       icon: Icon(
         icon,
-        color: currentIndex == index
-            ? Theme.of(context).colorScheme.primary
-            : Theme.of(context).colorScheme.tertiary,
+        color: currentIndex == index ? AppColors.gold : AppColors.grass,
       ),
       label: label,
     );

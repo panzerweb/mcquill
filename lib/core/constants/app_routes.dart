@@ -13,6 +13,7 @@ class AppRoutes {
   // WORLD ROUTES
   // ==========================================
   static const String worlds = '/worlds';
+  static const String world = ':worldId';
 
   // ==========================================
   // SETTING ROUTES

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mcquill/core/styles/app_colors.dart';
+import 'package:mcquill/core/styles/app_text_styles.dart';
 
 /*
 
@@ -41,9 +42,9 @@ class FeatureCard extends StatelessWidget {
     return Container(
       height: 120,
       decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: AppColors.border),
+        color: AppColors.tertiary,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: AppColors.tertiaryLight, width: 2),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -56,9 +57,8 @@ class FeatureCard extends StatelessWidget {
           const SizedBox(height: 14),
           Text(
             title,
-            style: const TextStyle(
-              fontWeight: FontWeight.w600,
-              color: AppColors.textPrimary,
+            style: AppTextStyles.labelMedium.copyWith(
+              color: AppColors.textHint,
             ),
           ),
         ],

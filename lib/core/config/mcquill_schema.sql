@@ -72,6 +72,43 @@ CREATE TABLE tasks (
 );
 
 
+-- ============================================================
+-- LORE
+-- Stores all lore for your world
+-- ============================================================
+CREATE TABLE lore {
+    id INTEGER PRIMARY KEY AUTOINCREMENT
+    world_id INTEGER NOT NULL,
+    title TEXT NOT NULL,
+    content TEXT NOT NULL,
+    created_at DATETIME NOT NULL,
+    updated_at DATETIME NOT NULL,
+
+    FOREIGN KEY (world_id)
+        REFERENCES worlds(id)
+        ON DELETE CASCADE
+}
+
+-- ============================================================
+-- COORDINATES
+-- Stores all important coordinates for your world
+-- ============================================================
+CREATE TABLE location {
+    id INTEGER PRIMARY KEY AUTOINCREMENT
+    world_id INTEGER NOT NULL,
+    location_name TEXT NOT NULL,
+    description TEXT NOT NULL,
+    x_coordinates INTEGER NOT NULL DEFAULT 0,
+    y_coordinates INTEGER NOT NULL DEFAULT 0,
+    z_coordinates INTEGER NOT NULL DEFAULT 0,
+    created_at DATETIME NOT NULL,
+    updated_at DATETIME NOT NULL,
+
+    FOREIGN KEY (world_id)
+        REFERENCES worlds(id)
+        ON DELETE CASCADE
+}
+
 
 -- ============================================================
 -- TAGS
